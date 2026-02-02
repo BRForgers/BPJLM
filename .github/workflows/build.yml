@@ -30,7 +30,7 @@ jobs:
           game_endpoint: "legacy"
           game_versions: "14284"
           project_id: "1451755"
-          token: "${{ secrets.CURSE_API_KEY }}"
+          token: "${{ secrets.CURSE_UPLOAD_HYTALE }}"
           changelog: ${{ github.event.head_commit.message }}
       - uses: actions/upload-artifact@v4
         with:
