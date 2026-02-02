@@ -17,10 +17,16 @@ jobs:
         id: build,
         run: "chmod +x gradlew && ./gradlew build",
       }
+      - name: "Find JAR file"
+        id: find-jar
+        run: |
+          JAR_FILE=$(find build/libs -name "*.jar" -not -name "*sources*" -not -name "*javadoc*" | head -n 1)
+          echo "jar_file=$JAR_FILE" >> $GITHUB_OUTPUT
+          echo "Found JAR: $JAR_FILE"
       - name: "Upload to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: "build/libs/BPJLM-${{ steps.build.outputs.version }}.jar"
+          file_path: "${{ steps.find-jar.outputs.jar_file }}"
           game_endpoint: "legacy"
           game_versions: "14284"
           project_id: "1451755"

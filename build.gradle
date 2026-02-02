@@ -20,13 +20,6 @@ boolean ci = System.getenv("CI") == "true"
 group = 'one.armelin'
 version = '1.0.0'
 
-if(ci){
-    exec {
-        commandLine "echo", "##[set-output name=version;]${project.version}";
-    }
-}
-
-
 def decomp(fileCollection) {
     def jarFile = fileCollection.singleFile
 
