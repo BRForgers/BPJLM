@@ -1,0 +1,33 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: "!(contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'skip ci'))"
+    steps:
+      - uses: actions/checkout@v2.2.0
+      - uses: joschi/setup-jdk@v2.3.0
+        with:
+          java-version: '25' # The OpenJDK version to make available on the path
+          architecture: 'x64' # defaults to 'x64'
+      - {
+        name: "Build with Gradle",
+        id: build,
+        run: "chmod +x gradlew && ./gradlew build",
+      }
+      - name: "Upload to CurseForge"
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          file_path: "build/libs/BPJLM-${{ steps.build.outputs.version }}.jar"
+          game_endpoint: "legacy"
+          game_versions: "14284"
+          project_id: "1451755"
+          token: "${{ secrets.CURSE_API_KEY }}"
+          changelog: ${{ github.event.head_commit.message }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            build/libs/

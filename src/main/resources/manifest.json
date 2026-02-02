@@ -1,0 +1,24 @@
+{
+    "Group": "armelin1",
+    "Name": "Better Player Join & Leave Messages",
+    "Version": "1.0.0",
+    "Description": "Improves the default player join/leave messages with customizable formats and additional information.",
+    "Authors": [
+        {
+            "Name": "armelin1"
+        }
+    ],
+    "ServerVersion": "*",
+    "Main": "one.armelin.bpjlm.BPJLM",
+    "Dependencies": {
+        "Hytale:EntityModule": "*"
+    },
+    "OptionalDependencies": {
+        
+    },
+    "DisabledByDefault": false,
+    "IncludesAssetPack": true,
+    "UpdateChecker": {
+        "CurseForge": 1451755
+    }
+}
